@@ -12,9 +12,14 @@
   (application-js))
 
 (defun stylesheets-handler ()
-  (/ 2 0)
-  (with-open-file (fh #p"/tmp/server-debug.log" :direction :output)
-      (format fh "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz~%")))
+  ;; (with-open-file (fh #p"/tmp/server-debug.log"
+  ;;                     :direction :output
+  ;;                     :if-exists :append)
+  ;;   (format fh "~&aaaaaaaaaaaaaaaaaaaaaaaaaa~%"))
+  (hunchentoot:handle-static-file (cl-fad:merge-pathnames-as-file
+                                   *default-pathname-defaults*
+                                   "stylesheets/"
+                                   "style.css")))
 
 (defun home-handler ()
   (default-layout

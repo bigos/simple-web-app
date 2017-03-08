@@ -2,9 +2,6 @@
 
 (in-package #:simple-web-app)
 
-;;this should point to your static files root
-(defvar *file-root* (cl-fad:merge-pathnames-as-directory *default-pathname-defaults* "web/"))
-
 (setf simple-routes:*routeslist*
       (compile-routes
        ;;html content uris
@@ -14,6 +11,11 @@
        (:GET    "/people/:first/:last"                  'get-people-handler)
        (:GET    "/people/put/:first/:last/:description" 'put-people-handler)
        (:PUT    "/people/:first/:last/:description"     'put-people-handler)))
+
+;;this should point to your static files root
+(defvar *file-root* (cl-fad:merge-pathnames-as-directory
+                     *default-pathname-defaults*
+                     "web/"))
 
 (defvar *macceptor* (make-instance 'simple-routes:simpleroutes-acceptor :port 5000
                                    :document-root *file-root*

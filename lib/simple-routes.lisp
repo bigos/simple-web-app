@@ -18,7 +18,7 @@
 
 (defclass simpleroutes-acceptor (acceptor)
   ((routes :initarg :routes
-           :accessor :routes
+           :accessor routes
            :documentation "Routes list."))
   (:documentation "This first tries to route requests using simple-router, then falls back
                     to hunchentoot's default easy-acceptor."))
@@ -51,26 +51,26 @@
    the output of this macro can in turn be processed by simple-processor"
   (declare (optimize (debug 3)))
   (let* ((thelist (remove "" (cl-ppcre:split "/" urldef) :test #'equalp))
-	 (startswithslash (and (> (length urldef) 0) (eql (elt urldef 0) #\/)))
-	 (endswithslash (and (> (length urldef) 1) (eql (lastitem urldef) #\/)))
-	 (colonitems (reverse
-		      (reduce (lambda (accum nxt)
-				(if (issymbolstring nxt)
-				    (cons nxt accum)
-				    accum))
-			      thelist :initial-value ())))
-	 (theregex (concatenate 'string
-				"^"
-				(when startswithslash "/")
-				(removelast
-				 (apply #'concatenate 'string
-					(loop for item in thelist collect
-					     (if (issymbolstring item)
-						 "([^/]*)/"
-						 (concatenate 'string item "/")))))
-				(when endswithslash "/")
-				"$"))
-	 (symstobind (mapcar (lambda (item) (intern (string-upcase (subseq item 1)))) colonitems)))
+         (startswithslash (and (> (length urldef) 0) (eql (elt urldef 0) #\/)))
+         (endswithslash (and (> (length urldef) 1) (eql (lastitem urldef) #\/)))
+         (colonitems (reverse
+                      (reduce (lambda (accum nxt)
+                                (if (issymbolstring nxt)
+                                    (cons nxt accum)
+                                    accum))
+                              thelist :initial-value ())))
+         (theregex (concatenate 'string
+                                "^"
+                                (when startswithslash "/")
+                                (removelast
+                                 (apply #'concatenate 'string
+                                        (loop for item in thelist collect
+                                             (if (issymbolstring item)
+                                                 "([^/]*)/"
+                                                 (concatenate 'string item "/")))))
+                                (when endswithslash "/")
+                                "$"))
+         (symstobind (mapcar (lambda (item) (intern (string-upcase (subseq item 1)))) colonitems)))
     `(list ,httpmethod ,theregex (quote ,symstobind) ,fntocall)))
 
 (defmacro compile-routes (&rest routespecs)
@@ -83,14 +83,14 @@
    ,it returns the associated handler and returns true.  otherwise returns false"
   (register-groups-bind (processed-uri) ("^([^?]*)\\??.*" request-uri)
     (loop for compiled-route in *routeslist* do
-	 (destructuring-bind (treqtype tregexp tvars tfntocall) compiled-route
-	   (declare (ignore tvars))
-	   (multiple-value-bind (regexmatch capturedstrings) (cl-ppcre:scan-to-strings tregexp processed-uri)
-	     (declare (ignore regexmatch))
-	     (if (and (not (eql capturedstrings nil))
-		      (eql treqtype request-type))
-		 (progn
-		   (return-from simple-router (apply tfntocall (coerce capturedstrings 'list))))))))))
+ (destructuring-bind (treqtype tregexp tvars tfntocall) compiled-route
+   (declare (ignore tvars))
+   (multiple-value-bind (regexmatch capturedstrings) (cl-ppcre:scan-to-strings tregexp processed-uri)
+     (declare (ignore regexmatch))
+     (if (and (not (eql capturedstrings nil))
+      (eql treqtype request-type))
+ (progn
+   (return-from simple-router (apply tfntocall (coerce capturedstrings 'list))))))))))
 
 
 (defmethod acceptor-dispatch-request ((acceptor simpleroutes-acceptor) request)

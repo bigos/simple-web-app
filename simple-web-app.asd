@@ -6,6 +6,7 @@
   :license "Specify license here"
   :depends-on (#:hunchentoot)
   :serial t
-  :components ((:file "package")
+  :components ((:module "lib"
+                        :components ((:file "simple-routes")))
+               (:file "package")
                (:file "simple-web-app")))
-

@@ -6,18 +6,14 @@
      (:head
       (:title "layout")
       (:link :href "/stylesheets/style.css" :media "all" :rel "stylesheet" :type "text/css")
-      (:script :src "jquery-2.1.1.min.js")
+      (:script :src "/javascripts/jquery-3.1.1.min.js")
       (:script :src "/javascript.js" ))
      (:body
-      (:h1 "In Layout")
-
+      (:h1 :onclick (parenscript:ps (hiding-callback)) "In Layout")
       (:div
-       (:a :href "/" "see the index")
-       (:span :style "margin:0 2em;" "|")
-       (:a :href "/about_me?name=Jacek&language=Lisp" "info about me")
-       (:span :style "margin:0 2em;" "|")
-       (:a :href "/hunchentoot-doc.html" "Documentation"))
+       (:a :href "/" "see the index"))
       (:hr))
 
      (who:fmt "~A" content)
-     (:footer "footer"))))
+     (:footer
+      "footer"))))

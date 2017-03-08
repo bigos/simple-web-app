@@ -5,4 +5,7 @@
     (defun greeting-callback ()
       (alert "Hello World"))
 
+    (defun hiding-callback ()
+      (parenscript:chain ($ "footer") (toggle)))
+
     ))

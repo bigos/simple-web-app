@@ -11,6 +11,12 @@
   (setf (hunchentoot:content-type*) "text/plain")
   (application-js))
 
+(defun javascripts-handler (file)
+  (hunchentoot:handle-static-file (cl-fad:merge-pathnames-as-file
+                                   *default-pathname-defaults*
+                                   "javascripts/"
+                                   file)))
+
 (defun stylesheets-handler ()
   ;; (with-open-file (fh #p"/tmp/server-debug.log"
   ;;                     :direction :output

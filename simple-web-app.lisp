@@ -25,7 +25,7 @@
   (application-js))
 
 (defvar *macceptor* (make-instance 'simple-routes:simpleroutes-acceptor
-                                   :routes *routes*
+                                   :routes (quote *routes*)
                                    :port 5000
                                    :document-root *file-root*
                                    :access-log-destination *terminal-io*

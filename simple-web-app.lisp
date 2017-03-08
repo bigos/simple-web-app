@@ -8,7 +8,7 @@
 (defvar *routes*
       (compile-routes
        ;;html content uris
-       (:GET    ""                                      'home-handler)
+       (:GET    "/javascript.js"                        'javascript-handler)
        (:GET    "/"                                     'home-handler)
        (:GET    "/people"                               'home-handler)
        (:GET    "/people/:first/:last"                  'get-people-handler)
@@ -19,10 +19,6 @@
 (defvar *file-root* (cl-fad:merge-pathnames-as-directory
                      *default-pathname-defaults*
                      "web/"))
-
-(hunchentoot:define-easy-handler (js1 :uri "/javascript.js") ()
-  (setf (hunchentoot:content-type*) "text/javascript")
-  (application-js))
 
 (defvar *macceptor* (make-instance 'simple-routes:simpleroutes-acceptor
                                    :routes '*routes*

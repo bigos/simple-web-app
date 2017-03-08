@@ -7,6 +7,10 @@
 (setf (gethash (list "Nikola" "Tesla") *people-hash*) "AC induction motor FTW!")
 (setf (gethash (list "Thomas" "Edison") *people-hash*) "preferred DC")
 
+(defun javascript-handler ()
+  (setf (hunchentoot:content-type*) "text/plain")
+  (application-js))
+
 (defun home-handler ()
   (with-html-output-to-string (*standard-output* nil :indent t)
     (:html

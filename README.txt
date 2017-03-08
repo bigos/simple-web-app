@@ -6,7 +6,9 @@ This is the stub README.txt for the "simple-web-app" project.
 
 (ql:quickload :simple-web-app)
 (in-package :simple-web-app)
-(run)
+
 
 To refresh the web content after editing the source run:
 (ql:quickload :simple-web-app)
+
+web page can be viewed at http://localhost:5000

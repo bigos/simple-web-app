@@ -11,4 +11,5 @@
   :components ((:module "lib"
                         :components ((:file "simple-routes")))
                (:file "package")
-               (:file "simple-web-app")))
+               (:file "simple-web-app")
+               (:file "controllers")))

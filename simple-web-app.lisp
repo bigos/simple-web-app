@@ -5,7 +5,7 @@
 ;;; make parenscript work nicely with cl-who
 (setf parenscript:*js-string-delimiter* #\")
 
-(setf simple-routes:*routeslist*
+(defvar *routes*
       (compile-routes
        ;;html content uris
        (:GET    ""                                      'home-handler)
@@ -24,7 +24,9 @@
   (setf (hunchentoot:content-type*) "text/javascript")
   (application-js))
 
-(defvar *macceptor* (make-instance 'simple-routes:simpleroutes-acceptor :port 5000
+(defvar *macceptor* (make-instance 'simple-routes:simpleroutes-acceptor
+                                   :routes *routes*
+                                   :port 5000
                                    :document-root *file-root*
                                    :access-log-destination *terminal-io*
                                    :message-log-destination *terminal-io*))

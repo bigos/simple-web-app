@@ -2,6 +2,9 @@
 
 (in-package #:simple-web-app)
 
+;;; make parenscript work nicely with cl-who
+(setf parenscript:*js-string-delimiter* #\")
+
 (setf simple-routes:*routeslist*
       (compile-routes
        ;;html content uris
@@ -16,6 +19,10 @@
 (defvar *file-root* (cl-fad:merge-pathnames-as-directory
                      *default-pathname-defaults*
                      "web/"))
+
+(hunchentoot:define-easy-handler (js1 :uri "/javascript.js") ()
+  (setf (hunchentoot:content-type*) "text/javascript")
+  (application-js))
 
 (defvar *macceptor* (make-instance 'simple-routes:simpleroutes-acceptor :port 5000
                                    :document-root *file-root*

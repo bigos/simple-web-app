@@ -10,6 +10,9 @@
 (defun home-handler ()
   (with-html-output-to-string (*standard-output* nil :indent t)
     (:html
+     (:head
+      (:script :src "/javascript.js" ))
+     (:a :href "#" :onclick (parenscript:ps (greeting-callback)) "alert test")
      (:h1 "Simple-Routes Demo")
      (:p "Look in simpleroutes-demo.lisp to see underlying code")
      (:table :border 3
@@ -23,8 +26,7 @@
      (:h2 "Current Entries")
      (maphash (lambda (k v)
                 (htm (:p (print k) ": " (fmt v))))
-              *people-hash*)
-     )))
+              *people-hash*))))
 
 (defun get-people-handler (first last)
   (with-html-output-to-string (*standard-output* nil :indent t)

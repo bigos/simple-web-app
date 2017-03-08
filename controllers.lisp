@@ -11,6 +11,11 @@
   (setf (hunchentoot:content-type*) "text/plain")
   (application-js))
 
+(defun stylesheets-handler ()
+  (/ 2 0)
+  (with-open-file (fh #p"/tmp/server-debug.log" :direction :output)
+      (format fh "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz~%")))
+
 (defun home-handler ()
   (default-layout
       (with-html-output-to-string (*standard-output* nil :indent t)

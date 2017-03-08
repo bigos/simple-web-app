@@ -9,6 +9,7 @@
       (compile-routes
        ;;html content uris
        (:GET    "/javascript.js"                        'javascript-handler)
+       (:GET    "/stylesheets/*"                        'stylesheets-handler)
        (:GET    "/"                                     'home-handler)
        (:GET    "/people"                               'home-handler)
        (:GET    "/people/:first/:last"                  'get-people-handler)

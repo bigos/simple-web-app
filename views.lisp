@@ -5,7 +5,7 @@
     (:html
      (:head
       (:title "layout")
-      (:link :href "/style.css" :media "all" :rel "stylesheet" :type "text/css")
+      (:link :href "/stylesheets/style.css" :media "all" :rel "stylesheet" :type "text/css")
       (:script :src "jquery-2.1.1.min.js")
       (:script :src "/javascript.js" ))
      (:body

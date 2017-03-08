@@ -12,7 +12,7 @@
 ;;Adds simple-router dispatching to the front of hunchentoot's dispatch table!
 
 (defvar *routeslist* ()
- "should contain routes compiled with routespec-compile or manually entered in compiled form
+  "should contain routes compiled with routespec-compile or manually entered in compiled form
   incoming requests are matched up against each item in *routeslist* successively, until (and if) a
   matching routespec is found.")
 
@@ -75,7 +75,7 @@
 
 (defmacro compile-routes (&rest routespecs)
   `(list ,@(loop for routespec in routespecs collect
-       (apply #'routespec-compile routespec))))
+                (apply #'routespec-compile routespec))))
 
 (defun simple-router (request-uri request-type)
   "takes in a request uri and type (:GET, :POST, etc...) and loops through all
@@ -83,21 +83,21 @@
    ,it returns the associated handler and returns true.  otherwise returns false"
   (register-groups-bind (processed-uri) ("^([^?]*)\\??.*" request-uri)
     (loop for compiled-route in *routeslist* do
- (destructuring-bind (treqtype tregexp tvars tfntocall) compiled-route
-   (declare (ignore tvars))
-   (multiple-value-bind (regexmatch capturedstrings) (cl-ppcre:scan-to-strings tregexp processed-uri)
-     (declare (ignore regexmatch))
-     (if (and (not (eql capturedstrings nil))
-      (eql treqtype request-type))
- (progn
-   (return-from simple-router (apply tfntocall (coerce capturedstrings 'list))))))))))
+         (destructuring-bind (treqtype tregexp tvars tfntocall) compiled-route
+           (declare (ignore tvars))
+           (multiple-value-bind (regexmatch capturedstrings) (cl-ppcre:scan-to-strings tregexp processed-uri)
+             (declare (ignore regexmatch))
+             (if (and (not (eql capturedstrings nil))
+                      (eql treqtype request-type))
+                 (progn
+                   (return-from simple-router (apply tfntocall (coerce capturedstrings 'list))))))))))
 
 
 (defmethod acceptor-dispatch-request ((acceptor simpleroutes-acceptor) request)
   "The simple request dispatcher which tries to complete the request using simple,
    but otherwise falls back to the hunchentoot defaults *dispatch-table* and easy-acceptor"
   (let ((uri (request-uri request))
-	(request-type (hunchentoot:request-method request)))
+        (request-type (hunchentoot:request-method request)))
     (let ((*routeslist* (let ((routes (routes acceptor)))
                           (typecase routes
                             (symbol (symbol-value routes))
@@ -116,13 +116,13 @@
 (defmacro bind-alist-values (lambda-list alist-expression &rest body)
   "this is intended to be used to access get and post parameters.  example usage
    (bind-alist-values (first second) (hunchentoot:get-parameters*)
-		         (list first second))"
+(list first second))"
   `(destructuring-bind ,lambda-list
        (mapcar (lambda (varname)
-		 (cdr (assoc (string varname)
-			     ,alist-expression
-			     :test #'equalp)) )
-	       (quote ,lambda-list))
+                 (cdr (assoc (string varname)
+                             ,alist-expression
+                             :test #'equalp)) )
+               (quote ,lambda-list))
      ,@body))
 
 (defun lastitem (seq)

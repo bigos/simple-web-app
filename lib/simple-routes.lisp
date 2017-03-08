@@ -98,14 +98,13 @@
    but otherwise falls back to the hunchentoot defaults *dispatch-table* and easy-acceptor"
   (let ((uri (request-uri request))
         (request-type (hunchentoot:request-method request)))
-    (let ((*routeslist* (let ((routes (routes acceptor)))
-                          (typecase routes
-                            (symbol (symbol-value routes))
-                            (T routes))))
-          (potentialout (simple-router uri request-type)))
-      (or
-       potentialout
-       (call-next-method)))))
+    (let* ((*routeslist* (let ((routes (routes acceptor)))
+                           (typecase routes
+                             (symbol (symbol-value routes))
+                             (T routes))))
+           (potentialout (simple-router uri request-type)))
+      (or potentialout
+          (call-next-method)))))
 
   ;; (loop for dispatcher in *dispatch-table*
   ;;    for action = (funcall dispatcher request)
@@ -116,7 +115,7 @@
 (defmacro bind-alist-values (lambda-list alist-expression &rest body)
   "this is intended to be used to access get and post parameters.  example usage
    (bind-alist-values (first second) (hunchentoot:get-parameters*)
-(list first second))"
+   (list first second))"
   `(destructuring-bind ,lambda-list
        (mapcar (lambda (varname)
                  (cdr (assoc (string varname)

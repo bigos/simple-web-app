@@ -13,4 +13,5 @@
                (:file "package")
                (:file "simple-web-app")
                (:file "controllers")
+               (:file "views")
                (:file "javascripts")))

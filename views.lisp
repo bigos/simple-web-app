@@ -7,7 +7,7 @@
       (:title "layout")
       (:link :href "/stylesheets/style.css" :media "all" :rel "stylesheet" :type "text/css")
       (:script :src "/javascripts/jquery-3.1.1.min.js")
-      (:script :src "/javascript.js" ))
+      (:script :src "/parenscript.js" ))
      (:body
       (:h1 :onclick (parenscript:ps (hiding-callback)) "In Layout")
       (:div

@@ -7,7 +7,7 @@
 (setf (gethash (list "Nikola" "Tesla") *people-hash*) "AC induction motor FTW!")
 (setf (gethash (list "Thomas" "Edison") *people-hash*) "preferred DC")
 
-(defun javascript-handler ()
+(defun parenscript-handler ()
   (setf (hunchentoot:content-type*) "text/plain")
   (application-js))
 

@@ -8,7 +8,7 @@
 (defvar *routes*
       (compile-routes
        ;;html content uris
-       (:GET    "/javascript.js"                        'javascript-handler)
+       (:GET    "/javascript.js"                        'parenscript-handler)
        (:GET    "/javascripts/:file"                    'javascripts-handler)
        (:GET    "/stylesheets/style.css"                'stylesheets-handler)
        (:GET    "/"                                     'home-handler)
